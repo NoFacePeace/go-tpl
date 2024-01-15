@@ -1,21 +1,13 @@
 package main
 
 import (
-	"fmt"
-
-	"github.com/pkg/errors"
+	"os"
 )
 
-func bar() error {
-	err := foo()
-	return err
-}
-
-func foo() error {
-	return errors.New("foo")
-}
-
 func main() {
-	err := bar()
-	fmt.Printf("%+v", err)
+	file, _ := os.OpenFile("0", os.O_RDWR|os.O_CREATE, 0755)
+	file.Seek(0, 2)
+	file.Write([]byte("haa"))
+	file.Sync()
+	file.Close()
 }
